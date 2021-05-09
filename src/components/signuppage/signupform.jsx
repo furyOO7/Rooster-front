@@ -8,12 +8,11 @@ import { findFormErrors } from '../../utilities/utilityfunction';
 const Signupform = (props) => {
 	const { addToast, removeAllToasts } = useToasts();
 	let [formData, setFormData] = useState({});
-	const [errors, setErrors] = useState({})
+	const [errors, setErrors] = useState({});
 	let toasterData = {
 		appearance: '',
 		autoDismiss: true,
 		autoDismissTimeout: 2000
-
 	}
 	const onformchangeHandler = (field, value) => {
 		setFormData({
@@ -29,7 +28,7 @@ const Signupform = (props) => {
 	const submitSignupform = (e) => {
 		e.preventDefault();
 		removeAllToasts()
-		const newErrors = findFormErrors(formData);
+		const newErrors = findFormErrors(formData, 'signup');
 		if (Object.keys(newErrors).length > 0) {
 			// We got errors!
 			console.log('newErrors', newErrors);
