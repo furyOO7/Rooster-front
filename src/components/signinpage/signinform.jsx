@@ -3,7 +3,9 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import { findFormErrors } from '../../utilities/utilityfunction';
+import { useToasts } from 'react-toast-notifications';
 const Signinform = (props) => {
+	const { addToast, removeAllToasts } = useToasts();
 	let [formData, setFormData] = useState({});
 	const [errors, setErrors] = useState({});
 	const onformchangeHandler = (field, value) => {
@@ -13,22 +15,34 @@ const Signinform = (props) => {
 			[field]: null
 		})
 	}
+	let toasterData = {
+		appearance: '',
+		autoDismiss: true,
+		autoDismissTimeout: 2000
+	}
     const submitSigninform =(e) => {
         e.preventDefault();
-		debugger
-
 		const newErrors = findFormErrors(formData, 'signin');
 		if (Object.keys(newErrors).length > 0) {
 			// We got errors!
 			setErrors(newErrors)
 		} else {
-			console.log("here");
 			axios({
 				method: 'POST',
 				url: 'http://localhost:3001/rooster/signin',
 				headers: {   "Access-Control-Allow-Origin": "*" },
 			}).then(res => {
 				console.log(res);
+				if(res.status === 200){
+					toasterData.appearance = 'success'
+					addToast('Login Successfully', toasterData);
+				}else{
+					toasterData.appearance = 'error'
+					addToast('Login error', toasterData);
+				}
+			}).catch(err => {
+				toasterData.appearance = 'error'
+				addToast('Login error', toasterData);
 			})
 		}
         

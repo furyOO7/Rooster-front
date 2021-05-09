@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Col } from 'react-bootstrap';
 import axios from 'axios';
-import { ToastProvider, useToasts } from 'react-toast-notifications';
+import { useToasts } from 'react-toast-notifications';
 import { findFormErrors } from '../../utilities/utilityfunction';
 const Signupform = (props) => {
 	const { addToast, removeAllToasts } = useToasts();
