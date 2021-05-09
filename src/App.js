@@ -3,9 +3,11 @@ import { Route, Switch, /*BrowserRouter,  Redirect */ } from 'react-router-dom'
 import LandingPage from './components/Landingpage/Landingpage';
 import Signupform from './components/signuppage/signupform';
 import Signinform from './components/signinpage/signinform';
+import { ToastProvider } from 'react-toast-notifications';
 
 function App() {
   return (
+    <ToastProvider>
     <div className="App">
       <Route exact path='/'>
       <div className="main-container">
@@ -25,6 +27,7 @@ function App() {
           </Switch>
       
     </div>
+    </ToastProvider>
   );
 }
 
