@@ -31,7 +31,7 @@ const Signupform = (props) => {
 		const newErrors = findFormErrors(formData, 'signup');
 		if (Object.keys(newErrors).length > 0) {
 			// We got errors!
-			console.log('newErrors', newErrors);
+			// console.log('newErrors', newErrors);
 			setErrors(newErrors)
 		} else {
 			axios({
@@ -40,19 +40,20 @@ const Signupform = (props) => {
 				headers: { "Access-Control-Allow-Origin": "*" },
 				data: formData
 			}).then(res => {
-				if (res.status === 200) {
+				if (res.status === 200 && res.data.result.length) {
 					toasterData.appearance = 'success'
-					addToast('Saved Successfully', toasterData);
+					addToast(res.data.message, toasterData);
 					formData = {
 					}
 					setFormData(formData)
 				} else {
 					toasterData.appearance = 'error'
-					addToast('Error', toasterData);
+					addToast(res.data.message, toasterData);
 				}
 			}).catch(err => {
+				console.log(err.message)
 				toasterData.appearance = 'error'
-				addToast('Error', toasterData);
+				addToast(err.message, toasterData);
 			})
 		}
 	}
